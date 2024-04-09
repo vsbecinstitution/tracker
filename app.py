@@ -22,6 +22,10 @@ if(connection):
 
 app = Flask(__name__)
 
+@app.route('/')
+def home():
+    return 'Hello, World!'
+
 @app.route("/login", methods=["POST"])
 def login():
     data = request.get_json()
