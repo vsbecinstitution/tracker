@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 import mysql.connector
-
+import psycopg2
 
 # db_config = {
 #     'user': 'vsbec',
@@ -13,18 +13,27 @@ import mysql.connector
 # connection = mysql.connector.connect(**db_config)
 # cursor = connection.cursor()
 
-# if(connection):
-#     print("DB Connected")
+
+db_config = {
+    'dbname': 'verceldb',    # Replace with your PostgreSQL database name
+    'user': 'default',      # Replace with your PostgreSQL username
+    'password': 'Bk8ROoUayC2m',  # Replace with your PostgreSQL password
+    'host': 'ep-spring-silence-a136eckp-pooler.ap-southeast-1.aws.neon.tech',          # Replace with your PostgreSQL host address
+    'port': '5432',          # Replace with your PostgreSQL port
+}
+
+# Establish PostgreSQL connection
+connection = psycopg2.connect(**db_config)
+cursor = connection.cursor()
+
+if(connection):
+    print("DB Connected")
     # query = "INSERT INTO users (email,password) VALUES (%s,%s) RETURN id"
     # cursor.execute(query, ("test","test"))
     # print(cursor.fetchone())
     # connection.commit()
 
 app = Flask(__name__)
-
-@app.route('/')
-def home():
-    return 'Hello, World!'
 
 @app.route("/login", methods=["POST"])
 def login():
