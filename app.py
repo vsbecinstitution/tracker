@@ -2,19 +2,19 @@ from flask import Flask, request, jsonify
 import mysql.connector
 
 
-db_config = {
-    'user': 'vsbec',
-    'password': 'Vicky@0717',  # Replace with your MySQL password
-    'host': 'vsbec.mysql.pythonanywhere-services.com',
-    'database': 'vsbec$users',  # Replace with your MySQL database name
-    'port': 3306,  # Default MySQL port
-}
+# db_config = {
+#     'user': 'vsbec',
+#     'password': 'Vicky@0717',  # Replace with your MySQL password
+#     'host': 'vsbec.mysql.pythonanywhere-services.com',
+#     'database': 'vsbec$users',  # Replace with your MySQL database name
+#     'port': 3306,  # Default MySQL port
+# }
 
-connection = mysql.connector.connect(**db_config)
-cursor = connection.cursor()
+# connection = mysql.connector.connect(**db_config)
+# cursor = connection.cursor()
 
-if(connection):
-    print("DB Connected")
+# if(connection):
+#     print("DB Connected")
     # query = "INSERT INTO users (email,password) VALUES (%s,%s) RETURN id"
     # cursor.execute(query, ("test","test"))
     # print(cursor.fetchone())
