@@ -94,6 +94,7 @@ def send():
     data = request.get_json()
     location = data.get("location")
     bus = str(data.get("bus"))
+    time = data.get("time")
     
     parts = location.split(', ')
 
@@ -108,11 +109,11 @@ def send():
     se = cursor.fetchone()
     
     if(se):
-        update = "UPDATE bus set latitude = %s,longitude = %s where bus_no = %s"
-        cursor.execute(update,(latitude, longitude, bus))
+        update = "UPDATE bus set latitude = %s,longitude = %s, time = %s where bus_no = %s"
+        cursor.execute(update,(latitude, longitude,time, bus))
     else:
-        insert = "INSERT into bus (bus_no, latitude, longitude) VALUES (%s,%s,%s)"
-        cursor.execute(insert,(bus, latitude, longitude))
+        insert = "INSERT into bus (bus_no, latitude, longitude, time) VALUES (%s,%s,%s,%s)"
+        cursor.execute(insert,(bus, latitude, longitude,time))
         
     connection.commit()
     return jsonify({
