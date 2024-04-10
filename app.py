@@ -26,6 +26,12 @@ db_config = {
 connection = psycopg2.connect(**db_config)
 cursor = connection.cursor()
 
+# query = "INSERT INTO users (email,password) VALUES (%s,%s) RETURNING id"
+# cursor.execute(query, ("vignesh","123",))
+
+# res = cursor.fetchone()
+# print(res)
+
 if(connection):
     print("DB Connected")
     # query = "INSERT INTO users (email,password) VALUES (%s,%s) RETURN id"
@@ -34,11 +40,6 @@ if(connection):
     # connection.commit()
 
 app = Flask(__name__)
-
-@app.route("/")
-def home():
-    return "hello world"
-
 
 @app.route("/login", methods=["POST"])
 def login():
@@ -80,8 +81,10 @@ def register():
             "Message":"No Data"
         })
 
-    query = "INSERT INTO users (email,password) VALUES (%s,%s)"
-    cursor.execute(query, (email,password))
+    query = "INSERT INTO users (email,password) VALUES (%s,%s) RETURNING id"
+    cursor.execute(query, (email,password,))
+
+    res = cursor.fetchone()
     connection.commit()
 
     return jsonify({"success":True})
