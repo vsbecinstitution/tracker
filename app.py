@@ -48,7 +48,7 @@ def login():
     password = data.get("password")
     
     query = "SELECT password from users where email = %s"
-    cursor.execute(query, (email))
+    cursor.execute(query, (email,))
     res = cursor.fetchone()
     if(res):
         if(res[0] == password):
