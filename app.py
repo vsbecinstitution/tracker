@@ -14,6 +14,7 @@ import psycopg2
 # cursor = connection.cursor()
 
 
+
 db_config = {
     'dbname': 'verceldb',    # Replace with your PostgreSQL database name
     'user': 'default',      # Replace with your PostgreSQL username
