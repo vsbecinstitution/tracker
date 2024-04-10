@@ -89,8 +89,36 @@ def register():
 
     return jsonify({"success":True})
 
-# if __name__ == "__main__":
-#     app.run(debug=True)
+@app.route("/send", methods=["POST"])
+def send():
+    data = request.get_json()
+    location = data.get("location")
+    bus = str(data.get("bus"))
+    
+    parts = location.split(', ')
+
+    latitude_str = parts[0].split(': ')[1]
+    longitude_str = parts[1].split(': ')[1]
+
+    latitude = (latitude_str)
+    longitude = (longitude_str)
+    
+    search_query = "SELECT bus_no from bus where bus_no = %s"
+    cursor.execute(search_query, (bus,))
+    se = cursor.fetchone()
+    
+    if(se):
+        update = "UPDATE bus set latitude = %s,longitude = %s where bus_no = %s"
+        cursor.execute(update,(latitude, longitude, bus))
+    else:
+        insert = "INSERT into bus (bus_no, latitude, longitude) VALUES (%s,%s,%s)"
+        cursor.execute(insert,(bus, latitude, longitude))
+        
+    connection.commit()
+    return jsonify({
+        "success":True,
+        "message":location
+    })
 
 if __name__ == "__main__":
     app.run(debug=True)
