@@ -132,8 +132,8 @@ def receive():
     if(res):
         return jsonify({
                 "success":True,
-                "latitude":res[0],
-                "longitude":res[1]
+                "latitude":float(res[0]),
+                "longitude":float(res[1])
             })
     else:
         return jsonify({
