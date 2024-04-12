@@ -10,6 +10,7 @@ import psycopg2
 #     'port': 3306,  # Default MySQL port
 # }
 
+
 # connection = mysql.connector.connect(**db_config)
 # cursor = connection.cursor()
 
