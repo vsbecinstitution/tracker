@@ -13,6 +13,7 @@ import psycopg2
 # connection = mysql.connector.connect(**db_config)
 # cursor = connection.cursor()
 
+
 db_config = {
     'dbname': 'verceldb',    # Replace with your PostgreSQL database name
     'user': 'default',      # Replace with your PostgreSQL username
@@ -119,6 +120,26 @@ def send():
         "success":True,
         "message":location
     })
+    
+@app.route("/receive", methods=["POST"])
+def receive():
+    data = request.get_json()
+    bus = str(data.get("bus"))
+    
+    query = "SELECT latitude, longitude from bus where bus_no = %s"
+    cursor.execute(query, (bus,))
+    res = cursor.fetchone()
+    if(res):
+        return jsonify({
+                "success":True,
+                "latitude":res[0],
+                "longitude":res[1]
+            })
+    else:
+        return jsonify({
+            "success":False,
+            "message":"Error Getting Location."
+        })
 
 if __name__ == "__main__":
     app.run(debug=True)
