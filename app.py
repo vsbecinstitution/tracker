@@ -41,6 +41,7 @@ if(connection):
 
 app = Flask(__name__)
 
+
 @app.route("/login", methods=["POST"])
 def login():
     data = request.get_json()
